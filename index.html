@@ -174,17 +174,24 @@
       background: linear-gradient(to bottom, #5EBF68 0%, #3FA547 50%, #2F8D3B 51%, #3FA547 100%);
       border: 1px solid #16591C;
       border-radius: 6px;
-      padding: 3px 6px 3px 3px;
+      padding: 3px 10px 3px 4px;
       color: white;
       font-weight: bold;
+      font-style: italic;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 3px;
-      font-size: 11px;
+      gap: 4px;
+      font-size: 13px;
       text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
       height: 24px;
+    }
+
+    .start-flag {
+      height: 18px;
+      width: auto;
+      display: block;
     }
 
     .start-btn:hover {
@@ -961,7 +968,7 @@ Last Updated: January 2026</div>
   <!-- Taskbar -->
   <div class="taskbar">
     <div class="start-btn" onclick="toggleStartMenu()">
-      <span style="font-size: 16px;">⊞</span>
+      <img src="assets/icons/winxp_flag.png" alt="" class="start-flag">
       <span>start</span>
     </div>
     <div class="taskbar-items" id="taskbarItems"></div>
