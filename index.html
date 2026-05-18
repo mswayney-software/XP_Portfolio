@@ -740,16 +740,6 @@
           <p>A fully interactive portfolio website that recreates the classic Windows XP experience. Features draggable windows, working file system navigation, and authentic XP styling.</p>
           <p><strong>Technologies:</strong> HTML, CSS, JavaScript</p>
         </div>
-        <div class="project-item">
-          <h3>Project Name 2</h3>
-          <p>Description of your second project. Explain what problem it solves, the technologies you used, and what you learned from building it.</p>
-          <p><strong>Technologies:</strong> List your tech stack here</p>
-        </div>
-        <div class="project-item">
-          <h3>Project Name 3</h3>
-          <p>Description of your third project. Share the challenges you faced and how you overcame them. Highlight any unique features or innovations.</p>
-          <p><strong>Technologies:</strong> List your tech stack here</p>
-        </div>
       </div>
     </div>
   </div>
@@ -769,10 +759,11 @@
       <div class="content-section">
         <h2>Get In Touch</h2>
         <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out!</p>
-        <p><strong>Email:</strong> your.email@example.com</p>
-        <p><strong>LinkedIn:</strong> linkedin.com/in/yourprofile</p>
-        <p><strong>GitHub:</strong> github.com/yourusername</p>
-        <p><strong>Location:</strong> Your City, Country</p>
+        <p><strong>Email:</strong> <a href="mailto:mswayney.software@gmail.com">mswayney.software@gmail.com</a></p>
+        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/michael-swayney-69258940b/" target="_blank">linkedin.com/in/michael-swayney-69258940b</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/mswayney-software" target="_blank">github.com/mswayney-software</a></p>
+        <p><strong>Portfolio:</strong> <a href="https://mswayney-software.github.io/XP_Portfolio/" target="_blank">mswayney-software.github.io/XP_Portfolio</a></p>
+        <p><strong>Location:</strong> Charleston, South Carolina</p>
         <p style="margin-top: 24px;">Whether you have a question, want to collaborate, or just want to say hi, I'd love to hear from you. Let's create something amazing together!</p>
       </div>
     </div>
@@ -816,9 +807,9 @@
       <div class="notepad-content">ABOUT ME
 ========================================
 
-Name: Your Name
+Name: Michael Troy Swayney
 Title: Engineering Professional
-Location: Your City, Country
+Location: Charleston, South Carolina
 
 ========================================
 
@@ -854,7 +845,7 @@ Last Updated: January 2026</div>
     <div class="title-bar" onmousedown="startDrag(event, 'chrome')">
       <div class="title-text">
         <span>🌐</span>
-        <span>My Portfolio - Google Chrome</span>
+        <span>Michael Swayney - Resume - Google Chrome</span>
       </div>
       <div class="title-buttons">
         <div class="title-btn" onclick="closeWindow('chrome')">×</div>
@@ -865,42 +856,10 @@ Last Updated: January 2026</div>
         <div class="browser-btn">←</div>
         <div class="browser-btn">→</div>
         <div class="browser-btn">↻</div>
-        <input type="text" class="url-bar" value="https://myportfolio.com" readonly>
+        <input type="text" class="url-bar" value="https://mswayney-software.github.io/XP_Portfolio/Michael_Swayney_Resume_AI_Internship.pdf" readonly>
       </div>
-      <div class="browser-content">
-        <div class="portfolio-section">
-          <div class="portfolio-header">
-            <h1>Welcome to My Portfolio</h1>
-            <p>Engineering Excellence Meets Creative Innovation</p>
-          </div>
-
-          <div class="portfolio-card">
-            <h2 style="color: #667eea; margin-bottom: 10px;">👨‍💻 About Me</h2>
-            <p>I'm a creative engineer passionate about building innovative solutions that make a difference. With expertise in modern web technologies and a love for unique user experiences, I create projects that are both functional and memorable.</p>
-          </div>
-
-          <div class="portfolio-card">
-            <h2 style="color: #667eea; margin-bottom: 10px;">🚀 Featured Projects</h2>
-            <h3 style="margin-top: 15px;">Windows XP Portfolio</h3>
-            <p>An interactive, nostalgic portfolio website that recreates the classic Windows XP experience with draggable windows, file navigation, and even the SkiFree game!</p>
-            
-            <h3 style="margin-top: 15px;">Project Two</h3>
-            <p>Description of another amazing project you've worked on. Showcase your technical skills and problem-solving abilities.</p>
-          </div>
-
-          <div class="portfolio-card">
-            <h2 style="color: #667eea; margin-bottom: 10px;">💼 Skills</h2>
-            <p><strong>Languages:</strong> JavaScript, Python, HTML/CSS, and more</p>
-            <p><strong>Frameworks:</strong> React, Node.js, Express</p>
-            <p><strong>Tools:</strong> Git, VS Code, Chrome DevTools</p>
-          </div>
-
-          <div class="portfolio-card">
-            <h2 style="color: #667eea; margin-bottom: 10px;">📬 Get In Touch</h2>
-            <p>Ready to collaborate? Check out the Contact Me folder on the desktop or reach me at:</p>
-            <p><strong>Email:</strong> your.email@example.com</p>
-          </div>
-        </div>
+      <div class="browser-content" style="padding: 0;">
+        <embed src="Michael_Swayney_Resume_AI_Internship.pdf" type="application/pdf" style="width: 100%; height: 100%; border: 0;">
       </div>
     </div>
   </div>
@@ -1459,188 +1418,6 @@ Last Updated: January 2026</div>
       const startMenu = document.getElementById('startMenu');
       const startBtn = document.querySelector('.start-btn');
       if (startMenu && startBtn && !startMenu.contains(e.target) && !startBtn.contains(e.target)) {
-        startMenu.classList.remove('active');
-      }
-    });
-  </script>ePath();
-        ctx.fill();
-        
-        ctx.fillStyle = '#8B4513';
-        ctx.fillRect(obs.x - 3, obs.y + 5, 6, 10);
-      } else {
-        ctx.fillStyle = '#696969';
-        ctx.beginPath();
-        ctx.arc(obs.x, obs.y, 10, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function checkCollision(obs) {
-      const dx = player.x - obs.x;
-      const dy = player.y - obs.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      return dist < 15;
-    }
-
-    function gameLoop() {
-      if (!gameRunning || !ctx) return;
-      
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      player.x += player.vx;
-      player.y = 50;
-      
-      if (player.x < 10) player.x = 10;
-      if (player.x > 390) player.x = 390;
-      
-      obstacles.forEach((obs, index) => {
-        obs.y -= gameSpeed;
-        
-        if (obs.y < -20) {
-          obstacles[index] = {
-            x: Math.random() * 350 + 25,
-            y: canvas.height + 20,
-            type: Math.random() > 0.5 ? 'tree' : 'rock'
-          };
-        }
-        
-        if (checkCollision(obs)) {
-          gameRunning = false;
-          document.getElementById('gameOver').classList.add('active');
-          document.getElementById('finalDistance').textContent = Math.floor(distance);
-        }
-        
-        drawObstacle(obs);
-      });
-      
-      drawPlayer();
-      
-      distance += gameSpeed * 0.1;
-      gameSpeed += 0.001;
-      
-      document.getElementById('distance').textContent = Math.floor(distance);
-      document.getElementById('speed').textContent = Math.floor(gameSpeed);
-      
-      requestAnimationFrame(gameLoop);
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (!gameRunning) return;
-      
-      if (e.key === 'ArrowLeft') {
-        player.vx = -4;
-      } else if (e.key === 'ArrowRight') {
-        player.vx = 4;
-      }
-    });
-
-    document.addEventListener('keyup', (e) => {
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-        player.vx = 0;
-      }
-    });
-
-    function restartGame() {
-      initGame();
-      gameLoop();
-    }
-
-    // Window Management
-    function openWindow(windowId) {
-      const win = document.getElementById(windowId);
-      win.classList.add('active');
-      win.style.zIndex = ++zIndex;
-      updateTaskbar();
-      
-      if (windowId === 'skifree' && !gameRunning) {
-        setTimeout(() => {
-          initGame();
-          gameLoop();
-        }, 100);
-      }
-      
-      if (windowId === 'doom' && !doomActive) {
-        setTimeout(() => initDoom(), 100);
-      }
-      
-      if (windowId === 'minesweeper') {
-        setTimeout(() => initMinesweeper(), 100);
-      }
-    }
-
-    function closeWindow(windowId) {
-      const win = document.getElementById(windowId);
-      win.classList.remove('active');
-      updateTaskbar();
-      
-      if (windowId === 'skifree') {
-        gameRunning = false;
-      }
-      
-      if (windowId === 'doom') {
-        doomActive = false;
-      }
-    }
-
-    function startDrag(e, windowId) {
-      draggedWindow = document.getElementById(windowId);
-      draggedWindow.style.zIndex = ++zIndex;
-      const rect = draggedWindow.getBoundingClientRect();
-      offsetX = e.clientX - rect.left;
-      offsetY = e.clientY - rect.top;
-      document.addEventListener('mousemove', drag);
-      document.addEventListener('mouseup', stopDrag);
-    }
-
-    function drag(e) {
-      if (draggedWindow) {
-        draggedWindow.style.left = (e.clientX - offsetX) + 'px';
-        draggedWindow.style.top = (e.clientY - offsetY) + 'px';
-      }
-    }
-
-    function stopDrag() {
-      draggedWindow = null;
-      document.removeEventListener('mousemove', drag);
-      document.removeEventListener('mouseup', stopDrag);
-    }
-
-    function updateTaskbar() {
-      const taskbarItems = document.getElementById('taskbarItems');
-      taskbarItems.innerHTML = '';
-      const windows = document.querySelectorAll('.window.active');
-      windows.forEach(win => {
-        const item = document.createElement('div');
-        item.className = 'taskbar-item';
-        const title = win.querySelector('.title-text span:last-child').textContent;
-        item.textContent = title;
-        item.onclick = () => {
-          win.style.zIndex = ++zIndex;
-        };
-        taskbarItems.appendChild(item);
-      });
-    }
-
-    function toggleStartMenu() {
-      const menu = document.getElementById('startMenu');
-      menu.classList.toggle('active');
-    }
-
-    function updateClock() {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, '0');
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      document.getElementById('clock').textContent = `🕐 ${hours}:${minutes}`;
-    }
-
-    updateClock();
-    setInterval(updateClock, 1000);
-
-    document.addEventListener('click', (e) => {
-      const startMenu = document.getElementById('startMenu');
-      const startBtn = document.querySelector('.start-btn');
-      if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
         startMenu.classList.remove('active');
       }
     });
