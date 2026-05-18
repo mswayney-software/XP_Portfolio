@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows XP Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Tahoma', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      background: 
+        radial-gradient(ellipse at 50% 80%, #7cbc3c 0%, #7cbc3c 30%, transparent 50%),
+        radial-gradient(ellipse at 30% 70%, #6bb02e 0%, transparent 40%),
+        radial-gradient(ellipse at 70% 75%, #8bc850 0%, transparent 35%),
+        linear-gradient(to bottom, 
+          #5da3db 0%, 
+          #6eb5e5 20%,
+          #7ec3ed 40%,
+          #a0d5f5 60%,
+          #9bd270 75%,
+          #8bc850 85%,
+          #7cbc3c 100%
+        );
+      background-size: cover;
+      background-position: center;
+      user-select: none;
+    }
+
+    .desktop {
+      height: calc(100vh - 30px);
+      position: relative;
+    }
+
+    .icon {
+      width: 80px;
+      text-align: center;
+      padding: 8px;
+      cursor: pointer;
+      position: absolute;
+    }
+
+    .icon:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px dotted #fff;
+    }
+
+    .icon img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 4px;
+    }
+
+    .icon-label {
+      color: white;
+      font-size: 11px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+      word-wrap: break-word;
+    }
+
+    .window {
+      position: absolute;
+      background: #ECE9D8;
+      border: 3px solid;
+      border-color: #0054E3 #003CC4 #003CC4 #0054E3;
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+      min-width: 400px;
+      min-height: 300px;
+      display: none;
+    }
+
+    .window.active {
+      display: block;
+      z-index: 1000;
+    }
+
+    .title-bar {
+      background: linear-gradient(to bottom, #0997FF 0%, #0053EE 8%, #0050EE 40%, #06F 88%, #06F 93%, #1A4FBE 95%, #003DD1 96%);
+      padding: 3px 4px 3px 4px;
+      cursor: move;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 28px;
+    }
+
+    .title-text {
+      color: white;
+      font-weight: bold;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+      padding-left: 2px;
+    }
+
+    .title-buttons {
+      display: flex;
+      gap: 2px;
+    }
+
+    .title-btn {
+      width: 21px;
+      height: 21px;
+      background: linear-gradient(to bottom, #FEAC5E 0%, #FF8B00 90%);
+      border: 1px solid #fff;
+      border-right-color: #7A3D06;
+      border-bottom-color: #7A3D06;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+    }
+
+    .title-btn:hover {
+      background: linear-gradient(to bottom, #FFCD8B 0%, #FFA040 90%);
+    }
+
+    .title-btn:active {
+      background: linear-gradient(to bottom, #FF8B00 0%, #FEAC5E 90%);
+      border: 1px solid #7A3D06;
+      border-right-color: #fff;
+      border-bottom-color: #fff;
+    }
+
+    .window-content {
+      padding: 16px;
+      height: calc(100% - 28px);
+      overflow-y: auto;
+      background: white;
+    }
+
+    .folder-view {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 100px);
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .folder {
+      text-align: center;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .folder:hover {
+      background: #E0E0FF;
+      border: 1px dotted #0054E3;
+    }
+
+    .folder img {
+      width: 48px;
+      height: 48px;
+    }
+
+    .folder-label {
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .taskbar {
+      height: 30px;
+      background: linear-gradient(to bottom, #245EDC 0%, #3F8CF3 9%, #245EDC 18%, #245EDC 92%, #1941A5 93%);
+      border-top: 1px solid #1941A5;
+      display: flex;
+      align-items: center;
+      padding: 0 2px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 10000;
+    }
+
+    .start-btn {
+      background: linear-gradient(to bottom, #5EBF68 0%, #3FA547 50%, #2F8D3B 51%, #3FA547 100%);
+      border: 1px solid #16591C;
+      border-radius: 6px;
+      padding: 3px 6px 3px 3px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+      height: 24px;
+    }
+
+    .start-btn:hover {
+      background: linear-gradient(to bottom, #6BD074 0%, #50C05A 50%, #3FA547 51%, #50C05A 100%);
+    }
+
+    .start-btn:active {
+      background: linear-gradient(to bottom, #2F8D3B 0%, #3FA547 50%, #50C05A 51%, #5EBF68 100%);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .taskbar-items {
+      flex: 1;
+      display: flex;
+      gap: 4px;
+      margin-left: 8px;
+    }
+
+    .taskbar-item {
+      background: linear-gradient(to bottom, #3C8CF3 0%, #2373E8 9%, #245EDC 18%, #245EDC 92%, #1941A5 93%);
+      border: 1px solid #1941A5;
+      border-radius: 3px;
+      padding: 3px 8px;
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .taskbar-item:hover {
+      background: linear-gradient(to bottom, #5AA4FF 0%, #3D8BF0 9%, #3680E8 18%, #3680E8 92%, #2563C7 93%);
+    }
+
+    .system-tray {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      padding: 0 8px;
+      background: linear-gradient(to bottom, #0EB5EE 0%, #12A6DD 9%, #0F9BCB 18%, #0F9BCB 92%, #0C7BA5 93%);
+      border: 1px solid #0C7BA5;
+      border-radius: 3px;
+      height: 22px;
+      color: white;
+      font-size: 11px;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    }
+
+    .start-menu {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      width: 380px;
+      background: white;
+      border: 3px solid;
+      border-color: #2B5FBD #2B5FBD #2B5FBD #2B5FBD;
+      border-radius: 8px 8px 0 0;
+      display: none;
+      box-shadow: 4px 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .start-menu.active {
+      display: block;
+    }
+
+    .start-menu-header {
+      background: linear-gradient(180deg, #4284F5 0%, #2968E5 50%, #1753D1 100%);
+      color: white;
+      padding: 12px 8px;
+      font-weight: bold;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 18px;
+      width: 50px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      border-radius: 6px 0 0 0;
+    }
+
+    .content-section {
+      line-height: 1.6;
+    }
+
+    .content-section h2 {
+      color: #0054E3;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .content-section p {
+      margin-bottom: 12px;
+    }
+
+    .project-item {
+      background: #F0F0F0;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-left: 3px solid #0054E3;
+    }
+
+    .project-item h3 {
+      color: #0054E3;
+      margin-bottom: 6px;
+    }
+
+    .notepad-content {
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      padding: 8px;
+      background: white;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .browser-chrome {
+      display: flex;
+      flex-direction: column;
+      height: calc(100% - 28px);
+    }
+
+    .browser-bar {
+      background: #F0F0F0;
+      padding: 8px;
+      border-bottom: 1px solid #CCC;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .browser-btn {
+      width: 24px;
+      height: 24px;
+      background: #E0E0E0;
+      border: 1px solid #999;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .browser-btn:hover {
+      background: #D0D0D0;
+    }
+
+    .url-bar {
+      flex: 1;
+      padding: 4px 8px;
+      border: 1px solid #999;
+      background: white;
+      font-size: 11px;
+    }
+
+    .browser-content {
+      flex: 1;
+      background: white;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .portfolio-section {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .portfolio-header {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .portfolio-header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .portfolio-card {
+      background: #F9F9F9;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .game-canvas {
+      background: white;
+      display: block;
+      margin: 20px auto;
+      border: 2px solid #333;
+    }
+
+    .game-info {
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      margin-top: 10px;
+    }
+
+    .game-over {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      display: none;
+    }
+
+    .game-over.active {
+      display: block;
+    }
+
+    .game-over button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .fps-game {
+      background: #000;
+      position: relative;
+      width: 100%;
+      height: calc(100% - 28px);
+    }
+
+    .fps-viewport {
+      width: 100%;
+      height: calc(100% - 60px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fps-hud {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      color: #0F0;
+      font-family: 'Courier New', monospace;
+      padding: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .fps-crosshair {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #0F0;
+      font-size: 24px;
+      pointer-events: none;
+    }
+
+    .enemy {
+      position: absolute;
+      font-size: 40px;
+      cursor: crosshair;
+      transition: transform 0.1s;
+    }
+
+    .enemy:hover {
+      transform: scale(1.2);
+    }
+
+    .muzzle-flash {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #FFD700;
+      font-size: 60px;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .muzzle-flash.active {
+      opacity: 1;
+    }
+
+    .minesweeper-board {
+      display: grid;
+      grid-template-columns: repeat(8, 30px);
+      grid-template-rows: repeat(8, 30px);
+      gap: 2px;
+      background: #808080;
+      padding: 10px;
+      margin: 20px auto;
+      width: fit-content;
+    }
+
+    .mine-cell {
+      width: 30px;
+      height: 30px;
+      background: #C0C0C0;
+      border: 2px outset #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .mine-cell:active {
+      border-style: inset;
+    }
+
+    .mine-cell.revealed {
+      background: #E0E0E0;
+      border: 1px solid #808080;
+    }
+
+    .mine-cell.mine {
+      background: #FF0000;
+    }
+
+    .mine-cell.flagged::before {
+      content: '🚩';
+    }
+
+    .mine-status {
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .secret-window {
+      background: linear-gradient(45deg, #FF00FF, #00FFFF);
+      animation: rainbow 3s infinite;
+    }
+
+    @keyframes rainbow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    .secret-content {
+      text-align: center;
+      padding: 40px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+
+    .secret-content h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .recycle-bin-content {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+
+    .recycle-bin-content img {
+      width: 128px;
+      height: 128px;
+      margin-bottom: 20px;
+      opacity: 0.3;
+    }
+
+    .start-menu-item {
+      padding: 6px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      border-radius: 3px;
+      color: #000;
+    }
+
+    .start-menu-item:hover {
+      background: linear-gradient(to right, #3D7EF5 0%, #4A8EFF 100%);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="desktop" id="desktop">
+    <div class="icon" style="left: 20px; top: 20px;" ondblclick="openWindow('myComputer')">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23757575' d='M38 8H10c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h28c2.2 0 4-1.8 4-4V12c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%239E9E9E' d='M38 6H10c-3.3 0-6 2.7-6 6v24c0 3.3 2.7 6 6 6h28c3.3 0 6-2.7 6-6V12c0-3.3-2.7-6-6-6zm0 30H10V12h28v24z'/%3E%3Cpath fill='%2300BCD4' d='M16 18h16v2H16zm0 4h16v2H16zm0 4h12v2H16z'/%3E%3C/svg%3E" alt="My Computer">
+      <div class="icon-label">My Computer</div>
+    </div>
+
+    <div class="icon" style="left: 20px; top: 120px;" ondblclick="openWindow('aboutMeTxt')">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FFF' d='M10 4h22l6 6v32c0 1.1-.9 2-2 2H10c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpath fill='%23E0E0E0' d='M32 4v6h6z'/%3E%3Cpath fill='%23616161' d='M14 18h20v2H14zm0 4h20v2H14zm0 4h20v2H14zm0 4h14v2H14z'/%3E%3C/svg%3E" alt="about me.txt">
+      <div class="icon-label">about me.txt</div>
+    </div>
+
+    <div class="icon" style="left: 20px; top: 220px;" ondblclick="openWindow('chrome')">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='20' fill='%23FFC107'/%3E%3Ccircle cx='24' cy='24' r='16' fill='%23FF5722'/%3E%3Ccircle cx='24' cy='24' r='12' fill='%234CAF50'/%3E%3Ccircle cx='24' cy='24' r='8' fill='%232196F3'/%3E%3Ccircle cx='24' cy='24' r='5' fill='%23FFF'/%3E%3Cpath fill='%23F44336' d='M24 4c11 0 20 9 20 20h-20z'/%3E%3Cpath fill='%23FFEB3B' d='M7.3 35.3L24 24V4C13 4 4 13 4 24c0 4.2 1.3 8.1 3.3 11.3z'/%3E%3Cpath fill='%234CAF50' d='M40.7 35.3L24 24l16.7-11.3C42.7 15.9 44 19.8 44 24c0 4.2-1.3 8.1-3.3 11.3z'/%3E%3C/svg%3E" alt="Google Chrome">
+      <div class="icon-label">Google Chrome</div>
+    </div>
+
+    <div class="icon" style="left: 20px; top: 320px;" ondblclick="openWindow('skifree')">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%2387CEEB' width='48' height='48'/%3E%3Cpath fill='%23FFF' d='M8 35l4-8 4 8zm12-5l3-6 3 6zm14-3l2-4 2 4z'/%3E%3Cpath fill='%23333' d='M24 18c-1 0-1.5.5-1.5 1.5v3c0 1 .5 1.5 1.5 1.5s1.5-.5 1.5-1.5v-3c0-1-.5-1.5-1.5-1.5z'/%3E%3Ccircle cx='24' cy='16' r='2' fill='%23FFD700'/%3E%3Cpath fill='%23FF0000' d='M22 24l-1 3h6l-1-3z'/%3E%3Cpath fill='%23333' d='M20 27l-2 8h12l-2-8z'/%3E%3C/svg%3E" alt="SkiFree">
+      <div class="icon-label">SkiFree</div>
+    </div>
+
+    <div class="icon" style="left: 120px; top: 20px;" ondblclick="openWindow('recycle')">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%232196F3' d='M38 14h-8l-4-6H14l-4 6H2v4h36z'/%3E%3Cpath fill='%2364B5F6' d='M6 18v20c0 2.2 1.8 4 4 4h28c2.2 0 4-1.8 4-4V18z'/%3E%3Cpath fill='%23FFF' d='M18 24h4v12h-4zm8 0h4v12h-4z'/%3E%3C/svg%3E" alt="Recycle Bin">
+      <div class="icon-label">Recycle Bin</div>
+    </div>
+
+    <div class="icon" style="left: 120px; top: 120px;" ondblclick="openWindow('minesweeper')">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23C0C0C0' width='48' height='48'/%3E%3Cpath fill='%23808080' d='M4 4h40v40H4z'/%3E%3Cpath fill='%23FFF' d='M8 8h32v32H8z'/%3E%3Ctext x='24' y='30' text-anchor='middle' font-size='20' fill='%23FF0000' font-weight='bold'%3E💣%3C/text%3E%3C/svg%3E" alt="Minesweeper">
+      <div class="icon-label">Minesweeper</div>
+    </div>
+
+    <div class="icon" style="left: 120px; top: 220px;" ondblclick="openWindow('music')">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FFD54F' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%23FFEB3B' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Ctext x='24' y='30' text-anchor='middle' font-size='18' fill='%23F57C00'%3E🎵%3C/text%3E%3C/svg%3E" alt="Music">
+      <div class="icon-label">Music</div>
+    </div>
+
+    <div class="icon" style="left: 120px; top: 320px;" ondblclick="openTotse()">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23000' width='48' height='48'/%3E%3Cpath fill='%2300FF00' d='M8 8h32v4H8zm0 8h32v4H8zm0 8h24v4H8zm0 8h28v4H8z'/%3E%3Ccircle cx='38' cy='38' r='6' fill='%2300FF00'/%3E%3Cpath fill='%23000' d='M38 35v6M35 38h6'/%3E%3C/svg%3E" alt="Totse">
+      <div class="icon-label">Totse.com</div>
+    </div>
+
+    <div class="icon" style="left: 20px; top: 420px;" ondblclick="openWindow('pics')">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%2366BB6A' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%234CAF50' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%23FFF' d='M18 24l-4 5h16l-5-6-3 4z'/%3E%3Ccircle cx='30' cy='20' r='2' fill='%23FFD54F'/%3E%3C/svg%3E" alt="Pics">
+      <div class="icon-label">Pics</div>
+    </div>
+  </div>
+
+  <!-- My Computer Window -->
+
+  <!-- My Computer Window -->
+  <div class="window" id="myComputer" style="left: 100px; top: 80px; width: 600px; height: 450px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'myComputer')">
+      <div class="title-text">
+        <span>💻</span>
+        <span>My Computer</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('myComputer')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="folder-view">
+        <div class="folder" ondblclick="openWindow('cDrive')">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FFA726' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%23FFB74D' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3C/svg%3E" alt="C:">
+          <div class="folder-label">Local Disk (C:)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C Drive Window -->
+  <div class="window" id="cDrive" style="left: 150px; top: 120px; width: 700px; height: 500px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'cDrive')">
+      <div class="title-text">
+        <span>📁</span>
+        <span>Local Disk (C:)</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('cDrive')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="folder-view">
+        <div class="folder" ondblclick="openWindow('aboutMe')">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FFD54F' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%23FFEB3B' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3C/svg%3E" alt="About Me">
+          <div class="folder-label">About Me</div>
+        </div>
+        <div class="folder" ondblclick="openWindow('projects')">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%234FC3F7' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%2329B6F6' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3C/svg%3E" alt="Projects">
+          <div class="folder-label">Projects</div>
+        </div>
+        <div class="folder" ondblclick="openWindow('contact')">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%2366BB6A' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%234CAF50' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3C/svg%3E" alt="Contact">
+          <div class="folder-label">Contact Me</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Me Window -->
+  <div class="window" id="aboutMe" style="left: 200px; top: 150px; width: 600px; height: 450px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'aboutMe')">
+      <div class="title-text">
+        <span>👤</span>
+        <span>About Me</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('aboutMe')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="content-section">
+        <h2>Welcome to My Portfolio!</h2>
+        <p>Hello! I'm a passionate engineer who loves building innovative solutions and exploring new technologies. This Windows XP-themed portfolio is a nostalgic way to showcase my work and share my journey.</p>
+        <p>With a strong foundation in engineering principles and a keen eye for detail, I specialize in creating efficient, scalable, and user-friendly applications. My expertise spans across multiple domains, and I'm always eager to take on new challenges.</p>
+        <p>When I'm not coding, you can find me exploring the latest tech trends, contributing to open-source projects, or enjoying a good cup of coffee while brainstorming the next big idea.</p>
+        <p><strong>Skills:</strong> Software Development, Web Technologies, System Design, Problem Solving</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects Window -->
+  <div class="window" id="projects" style="left: 250px; top: 180px; width: 650px; height: 500px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'projects')">
+      <div class="title-text">
+        <span>🚀</span>
+        <span>Projects</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('projects')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="content-section">
+        <h2>My Engineering Projects</h2>
+        <div class="project-item">
+          <h3>Windows XP Portfolio Website</h3>
+          <p>A fully interactive portfolio website that recreates the classic Windows XP experience. Features draggable windows, working file system navigation, and authentic XP styling.</p>
+          <p><strong>Technologies:</strong> HTML, CSS, JavaScript</p>
+        </div>
+        <div class="project-item">
+          <h3>Project Name 2</h3>
+          <p>Description of your second project. Explain what problem it solves, the technologies you used, and what you learned from building it.</p>
+          <p><strong>Technologies:</strong> List your tech stack here</p>
+        </div>
+        <div class="project-item">
+          <h3>Project Name 3</h3>
+          <p>Description of your third project. Share the challenges you faced and how you overcame them. Highlight any unique features or innovations.</p>
+          <p><strong>Technologies:</strong> List your tech stack here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Window -->
+  <div class="window" id="contact" style="left: 300px; top: 210px; width: 550px; height: 400px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'contact')">
+      <div class="title-text">
+        <span>📧</span>
+        <span>Contact Me</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('contact')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="content-section">
+        <h2>Get In Touch</h2>
+        <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out!</p>
+        <p><strong>Email:</strong> your.email@example.com</p>
+        <p><strong>LinkedIn:</strong> linkedin.com/in/yourprofile</p>
+        <p><strong>GitHub:</strong> github.com/yourusername</p>
+        <p><strong>Location:</strong> Your City, Country</p>
+        <p style="margin-top: 24px;">Whether you have a question, want to collaborate, or just want to say hi, I'd love to hear from you. Let's create something amazing together!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Music Folder Window -->
+  <div class="window" id="music" style="left: 220px; top: 140px; width: 600px; height: 400px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'music')">
+      <div class="title-text">
+        <span>🎵</span>
+        <span>Music</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('music')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="folder-view">
+        <div class="folder" ondblclick="openYouTubeVideo()">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23E91E63' width='48' height='48' rx='4'/%3E%3Cpath fill='%23FFF' d='M24 10c-7.7 0-14 6.3-14 14s6.3 14 14 14 14-6.3 14-14-6.3-14-14-14zm-2 21v-14l11 7-11 7z'/%3E%3C/svg%3E" alt="White Iverson">
+          <div class="folder-label">White Iverson</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- White Iverson Video Window - REMOVED (opens in new tab instead) -->
+
+  <!-- About Me TXT Window -->
+  <div class="window" id="aboutMeTxt" style="left: 180px; top: 100px; width: 550px; height: 400px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'aboutMeTxt')">
+      <div class="title-text">
+        <span>📝</span>
+        <span>about me.txt - Notepad</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('aboutMeTxt')">×</div>
+      </div>
+    </div>
+    <div class="window-content" style="padding: 0;">
+      <div class="notepad-content">ABOUT ME
+========================================
+
+Name: Your Name
+Title: Engineering Professional
+Location: Your City, Country
+
+========================================
+
+Hi there! Thanks for checking out my portfolio.
+
+I'm a passionate engineer who loves building 
+things and solving complex problems. This 
+Windows XP-themed portfolio is just one example 
+of how I combine creativity with technical skills.
+
+WHAT I DO:
+- Software Development
+- Web Technologies
+- System Design
+- Creative Problem Solving
+
+INTERESTS:
+- Retro computing and UI design
+- Open source contributions
+- Continuous learning
+- Building cool projects
+
+Feel free to explore the rest of my portfolio
+to see my projects and get in touch!
+
+========================================
+Last Updated: January 2026</div>
+    </div>
+  </div>
+
+  <!-- Chrome Browser Window -->
+  <div class="window" id="chrome" style="left: 220px; top: 130px; width: 800px; height: 600px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'chrome')">
+      <div class="title-text">
+        <span>🌐</span>
+        <span>My Portfolio - Google Chrome</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('chrome')">×</div>
+      </div>
+    </div>
+    <div class="browser-chrome">
+      <div class="browser-bar">
+        <div class="browser-btn">←</div>
+        <div class="browser-btn">→</div>
+        <div class="browser-btn">↻</div>
+        <input type="text" class="url-bar" value="https://myportfolio.com" readonly>
+      </div>
+      <div class="browser-content">
+        <div class="portfolio-section">
+          <div class="portfolio-header">
+            <h1>Welcome to My Portfolio</h1>
+            <p>Engineering Excellence Meets Creative Innovation</p>
+          </div>
+
+          <div class="portfolio-card">
+            <h2 style="color: #667eea; margin-bottom: 10px;">👨‍💻 About Me</h2>
+            <p>I'm a creative engineer passionate about building innovative solutions that make a difference. With expertise in modern web technologies and a love for unique user experiences, I create projects that are both functional and memorable.</p>
+          </div>
+
+          <div class="portfolio-card">
+            <h2 style="color: #667eea; margin-bottom: 10px;">🚀 Featured Projects</h2>
+            <h3 style="margin-top: 15px;">Windows XP Portfolio</h3>
+            <p>An interactive, nostalgic portfolio website that recreates the classic Windows XP experience with draggable windows, file navigation, and even the SkiFree game!</p>
+            
+            <h3 style="margin-top: 15px;">Project Two</h3>
+            <p>Description of another amazing project you've worked on. Showcase your technical skills and problem-solving abilities.</p>
+          </div>
+
+          <div class="portfolio-card">
+            <h2 style="color: #667eea; margin-bottom: 10px;">💼 Skills</h2>
+            <p><strong>Languages:</strong> JavaScript, Python, HTML/CSS, and more</p>
+            <p><strong>Frameworks:</strong> React, Node.js, Express</p>
+            <p><strong>Tools:</strong> Git, VS Code, Chrome DevTools</p>
+          </div>
+
+          <div class="portfolio-card">
+            <h2 style="color: #667eea; margin-bottom: 10px;">📬 Get In Touch</h2>
+            <p>Ready to collaborate? Check out the Contact Me folder on the desktop or reach me at:</p>
+            <p><strong>Email:</strong> your.email@example.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SkiFree Game Window -->
+  <div class="window" id="skifree" style="left: 260px; top: 80px; width: 450px; height: 600px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'skifree')">
+      <div class="title-text">
+        <span>⛷️</span>
+        <span>SkiFree</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('skifree')">×</div>
+      </div>
+    </div>
+    <div class="window-content" style="background: #87CEEB; position: relative;">
+      <canvas id="gameCanvas" class="game-canvas" width="400" height="500"></canvas>
+      <div class="game-info">
+        <p>Distance: <span id="distance">0</span>m | Speed: <span id="speed">0</span></p>
+        <p>Use Arrow Keys to Move | Avoid obstacles!</p>
+      </div>
+      <div class="game-over" id="gameOver">
+        <h2>Game Over!</h2>
+        <p>Distance: <span id="finalDistance">0</span>m</p>
+        <button onclick="restartGame()">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Minesweeper Game Window -->
+  <div class="window" id="minesweeper" style="left: 320px; top: 140px; width: 350px; height: 450px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'minesweeper')">
+      <div class="title-text">
+        <span>💣</span>
+        <span>Minesweeper</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('minesweeper')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="mine-status" id="mineStatus">Mines: <span id="mineCount">10</span> | Click to reveal, Right-click to flag</div>
+      <div class="minesweeper-board" id="mineBoard"></div>
+      <div style="text-align: center; margin-top: 10px;">
+        <button onclick="initMinesweeper()" style="padding: 8px 16px; cursor: pointer;">New Game</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recycle Bin Window -->
+  <div class="window" id="recycle" style="left: 200px; top: 180px; width: 500px; height: 350px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'recycle')">
+      <div class="title-text">
+        <span>🗑️</span>
+        <span>Recycle Bin</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('recycle')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="recycle-bin-content">
+        <div style="font-size: 128px;">🗑️</div>
+        <h2>Recycle Bin is Empty</h2>
+        <p style="margin-top: 20px; color: #999;">Your deleted items would appear here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pics Folder Window -->
+  <div class="window" id="pics" style="left: 180px; top: 120px; width: 800px; height: 600px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'pics')">
+      <div class="title-text">
+        <span>📷</span>
+        <span>Pics</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('pics')">×</div>
+      </div>
+    </div>
+    <div class="window-content" style="padding: 16px; background: white;">
+      <div style="text-align: center;">
+        <h3 style="color: #0054E3; margin-bottom: 16px;">Good Times - Circa 2009</h3>
+        <img src="data:image/jpeg;base64,{{PHOTO_BASE64}}" 
+             alt="Nostalgic photo from 2009" 
+             style="max-width: 100%; height: auto; border: 3px solid #999; box-shadow: 2px 2px 8px rgba(0,0,0,0.3);"
+             onclick="openWindow('photoViewer')">
+        <p style="margin-top: 12px; color: #666; font-size: 12px;">Click photo to view full size</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo Viewer Window -->
+  <div class="window" id="photoViewer" style="left: 100px; top: 60px; width: 90%; height: 90%; max-width: 1200px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'photoViewer')">
+      <div class="title-text">
+        <span>🖼️</span>
+        <span>Windows Picture and Fax Viewer</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('photoViewer')">×</div>
+      </div>
+    </div>
+    <div class="window-content" style="padding: 0; background: #000; display: flex; align-items: center; justify-content: center;">
+      <img src="data:image/jpeg;base64,{{PHOTO_BASE64}}" 
+           alt="Full size photo" 
+           style="max-width: 100%; max-height: 100%; object-fit: contain;">
+    </div>
+  </div>
+
+  <!-- Taskbar -->
+  <div class="taskbar">
+    <div class="start-btn" onclick="toggleStartMenu()">
+      <span style="font-size: 16px;">⊞</span>
+      <span>start</span>
+    </div>
+    <div class="taskbar-items" id="taskbarItems"></div>
+    <div class="system-tray">
+      <span id="clock"></span>
+    </div>
+  </div>
+
+  <!-- Start Menu -->
+  <div class="start-menu" id="startMenu">
+    <div style="display: flex; height: 100%;">
+      <div class="start-menu-header">Windows XP</div>
+      <div style="flex: 1; padding: 8px;">
+        <div style="border-bottom: 1px solid #999; padding-bottom: 8px; margin-bottom: 8px;">
+          <div class="start-menu-item" onclick="openWindow('myComputer'); toggleStartMenu();">
+            <span>💻</span> My Computer
+          </div>
+          <div class="start-menu-item" onclick="openWindow('music'); toggleStartMenu();">
+            <span>🎵</span> Music
+          </div>
+        </div>
+        <div>
+          <div class="start-menu-item" onclick="openWindow('chrome'); toggleStartMenu();">
+            <span>🌐</span> Internet
+          </div>
+          <div class="start-menu-item" onclick="openWindow('recycle'); toggleStartMenu();">
+            <span>🗑️</span> Recycle Bin
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let draggedWindow = null;
+    let offsetX = 0;
+    let offsetY = 0;
+    let zIndex = 1000;
+
+    // Wait for DOM to load
+    document.addEventListener('DOMContentLoaded', function() {
+      initializePage();
+    });
+
+    function initializePage() {
+      updateClock();
+      setInterval(updateClock, 1000);
+    }
+
+    // Open YouTube video in new tab
+    function openYouTubeVideo() {
+      window.open('https://www.youtube.com/watch?v=SLsTskih7_I&list=RDSLsTskih7_I&start_radio=1', '_blank');
+    }
+
+    // Open Totse.com archived website in new tab
+    function openTotse() {
+      window.open('https://web.archive.org/web/20050831122910/http://www.totse.com/en/hack/index.html', '_blank');
+    }
+
+    // Minesweeper Logic
+    let mineGrid = [];
+    let mineRevealed = [];
+    let mineFlagged = [];
+    const GRID_SIZE = 8;
+    const MINE_COUNT = 10;
+
+    function initMinesweeper() {
+      mineGrid = Array(GRID_SIZE).fill().map(() => Array(GRID_SIZE).fill(0));
+      mineRevealed = Array(GRID_SIZE).fill().map(() => Array(GRID_SIZE).fill(false));
+      mineFlagged = Array(GRID_SIZE).fill().map(() => Array(GRID_SIZE).fill(false));
+      
+      // Place mines
+      let minesPlaced = 0;
+      while (minesPlaced < MINE_COUNT) {
+        const row = Math.floor(Math.random() * GRID_SIZE);
+        const col = Math.floor(Math.random() * GRID_SIZE);
+        if (mineGrid[row][col] !== -1) {
+          mineGrid[row][col] = -1;
+          minesPlaced++;
+        }
+      }
+      
+      // Calculate numbers
+      for (let row = 0; row < GRID_SIZE; row++) {
+        for (let col = 0; col < GRID_SIZE; col++) {
+          if (mineGrid[row][col] === -1) continue;
+          let count = 0;
+          for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+              const nr = row + dr;
+              const nc = col + dc;
+              if (nr >= 0 && nr < GRID_SIZE && nc >= 0 && nc < GRID_SIZE && mineGrid[nr][nc] === -1) {
+                count++;
+              }
+            }
+          }
+          mineGrid[row][col] = count;
+        }
+      }
+      
+      renderMinesweeper();
+    }
+
+    function renderMinesweeper() {
+      const board = document.getElementById('mineBoard');
+      if (!board) return;
+      
+      board.innerHTML = '';
+      
+      for (let row = 0; row < GRID_SIZE; row++) {
+        for (let col = 0; col < GRID_SIZE; col++) {
+          const cell = document.createElement('div');
+          cell.className = 'mine-cell';
+          
+          if (mineRevealed[row][col]) {
+            cell.classList.add('revealed');
+            if (mineGrid[row][col] === -1) {
+              cell.textContent = '💣';
+              cell.classList.add('mine');
+            } else if (mineGrid[row][col] > 0) {
+              cell.textContent = mineGrid[row][col];
+              const colors = ['', '#0000FF', '#008000', '#FF0000', '#000080', '#800000', '#008080', '#000000', '#808080'];
+              cell.style.color = colors[mineGrid[row][col]];
+            }
+          } else if (mineFlagged[row][col]) {
+            cell.classList.add('flagged');
+          }
+          
+          cell.onclick = () => revealCell(row, col);
+          cell.oncontextmenu = (e) => {
+            e.preventDefault();
+            toggleFlag(row, col);
+          };
+          
+          board.appendChild(cell);
+        }
+      }
+      
+      const flagCount = mineFlagged.flat().filter(f => f).length;
+      const mineCountEl = document.getElementById('mineCount');
+      if (mineCountEl) mineCountEl.textContent = MINE_COUNT - flagCount;
+    }
+
+    function revealCell(row, col) {
+      if (mineRevealed[row][col] || mineFlagged[row][col]) return;
+      
+      mineRevealed[row][col] = true;
+      
+      if (mineGrid[row][col] === -1) {
+        // Hit a mine
+        for (let r = 0; r < GRID_SIZE; r++) {
+          for (let c = 0; c < GRID_SIZE; c++) {
+            if (mineGrid[r][c] === -1) {
+              mineRevealed[r][c] = true;
+            }
+          }
+        }
+        renderMinesweeper();
+        setTimeout(() => alert('Game Over! You hit a mine!'), 100);
+        return;
+      }
+      
+      if (mineGrid[row][col] === 0) {
+        // Reveal adjacent cells
+        for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            const nr = row + dr;
+            const nc = col + dc;
+            if (nr >= 0 && nr < GRID_SIZE && nc >= 0 && nc < GRID_SIZE) {
+              revealCell(nr, nc);
+            }
+          }
+        }
+      }
+      
+      renderMinesweeper();
+      checkWin();
+    }
+
+    function toggleFlag(row, col) {
+      if (mineRevealed[row][col]) return;
+      mineFlagged[row][col] = !mineFlagged[row][col];
+      renderMinesweeper();
+    }
+
+    function checkWin() {
+      let allSafe = true;
+      for (let row = 0; row < GRID_SIZE; row++) {
+        for (let col = 0; col < GRID_SIZE; col++) {
+          if (mineGrid[row][col] !== -1 && !mineRevealed[row][col]) {
+            allSafe = false;
+          }
+        }
+      }
+      
+      if (allSafe) {
+        setTimeout(() => alert('Congratulations! You won!'), 100);
+      }
+    }
+
+    // SkiFree Game Logic
+    let gameRunning = false;
+    let player = { x: 200, y: 50, vx: 0, vy: 0 };
+    let obstacles = [];
+    let distance = 0;
+    let gameSpeed = 2;
+
+    function initGame() {
+      const canvas = document.getElementById('gameCanvas');
+      if (!canvas) return;
+      
+      player = { x: 200, y: 50, vx: 0, vy: 2 };
+      obstacles = [];
+      distance = 0;
+      gameSpeed = 2;
+      gameRunning = true;
+      
+      const gameOverEl = document.getElementById('gameOver');
+      if (gameOverEl) gameOverEl.classList.remove('active');
+      
+      for (let i = 0; i < 10; i++) {
+        obstacles.push({
+          x: Math.random() * 350 + 25,
+          y: i * 100 + 200,
+          type: Math.random() > 0.5 ? 'tree' : 'rock'
+        });
+      }
+    }
+
+    function drawPlayer(ctx) {
+      if (!ctx) return;
+      ctx.fillStyle = '#FF0000';
+      ctx.beginPath();
+      ctx.moveTo(player.x, player.y);
+      ctx.lineTo(player.x - 8, player.y + 20);
+      ctx.lineTo(player.x + 8, player.y + 20);
+      ctx.closePath();
+      ctx.fill();
+      
+      ctx.fillStyle = '#FFD700';
+      ctx.beginPath();
+      ctx.arc(player.x, player.y - 5, 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function drawObstacle(ctx, obs) {
+      if (!ctx) return;
+      if (obs.type === 'tree') {
+        ctx.fillStyle = '#228B22';
+        ctx.beginPath();
+        ctx.moveTo(obs.x, obs.y - 15);
+        ctx.lineTo(obs.x - 10, obs.y + 5);
+        ctx.lineTo(obs.x + 10, obs.y + 5);
+        ctx.closePath();
+        ctx.fill();
+        
+        ctx.fillStyle = '#8B4513';
+        ctx.fillRect(obs.x - 3, obs.y + 5, 6, 10);
+      } else {
+        ctx.fillStyle = '#696969';
+        ctx.beginPath();
+        ctx.arc(obs.x, obs.y, 10, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function checkCollision(obs) {
+      const dx = player.x - obs.x;
+      const dy = player.y - obs.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      return dist < 15;
+    }
+
+    function gameLoop() {
+      if (!gameRunning) return;
+      
+      const canvas = document.getElementById('gameCanvas');
+      if (!canvas) return;
+      
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      player.x += player.vx;
+      player.y = 50;
+      
+      if (player.x < 10) player.x = 10;
+      if (player.x > 390) player.x = 390;
+      
+      obstacles.forEach((obs, index) => {
+        obs.y -= gameSpeed;
+        
+        if (obs.y < -20) {
+          obstacles[index] = {
+            x: Math.random() * 350 + 25,
+            y: canvas.height + 20,
+            type: Math.random() > 0.5 ? 'tree' : 'rock'
+          };
+        }
+        
+        if (checkCollision(obs)) {
+          gameRunning = false;
+          const gameOverEl = document.getElementById('gameOver');
+          const finalDistanceEl = document.getElementById('finalDistance');
+          if (gameOverEl) gameOverEl.classList.add('active');
+          if (finalDistanceEl) finalDistanceEl.textContent = Math.floor(distance);
+        }
+        
+        drawObstacle(ctx, obs);
+      });
+      
+      drawPlayer(ctx);
+      
+      distance += gameSpeed * 0.1;
+      gameSpeed += 0.001;
+      
+      const distanceEl = document.getElementById('distance');
+      const speedEl = document.getElementById('speed');
+      if (distanceEl) distanceEl.textContent = Math.floor(distance);
+      if (speedEl) speedEl.textContent = Math.floor(gameSpeed);
+      
+      requestAnimationFrame(gameLoop);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (!gameRunning) return;
+      
+      if (e.key === 'ArrowLeft') {
+        player.vx = -4;
+      } else if (e.key === 'ArrowRight') {
+        player.vx = 4;
+      }
+    });
+
+    document.addEventListener('keyup', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        player.vx = 0;
+      }
+    });
+
+    function restartGame() {
+      initGame();
+      gameLoop();
+    }
+
+    // Window Management
+    function openWindow(windowId) {
+      const win = document.getElementById(windowId);
+      if (!win) return;
+      
+      win.classList.add('active');
+      win.style.zIndex = ++zIndex;
+      updateTaskbar();
+      
+      if (windowId === 'skifree' && !gameRunning) {
+        setTimeout(() => {
+          initGame();
+          gameLoop();
+        }, 100);
+      }
+      
+      if (windowId === 'minesweeper') {
+        setTimeout(() => initMinesweeper(), 100);
+      }
+    }
+
+    function closeWindow(windowId) {
+      const win = document.getElementById(windowId);
+      if (!win) return;
+      
+      win.classList.remove('active');
+      updateTaskbar();
+      
+      if (windowId === 'skifree') {
+        gameRunning = false;
+      }
+    }
+
+    function startDrag(e, windowId) {
+      draggedWindow = document.getElementById(windowId);
+      if (!draggedWindow) return;
+      
+      draggedWindow.style.zIndex = ++zIndex;
+      const rect = draggedWindow.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('mouseup', stopDrag);
+    }
+
+    function drag(e) {
+      if (draggedWindow) {
+        draggedWindow.style.left = (e.clientX - offsetX) + 'px';
+        draggedWindow.style.top = (e.clientY - offsetY) + 'px';
+      }
+    }
+
+    function stopDrag() {
+      draggedWindow = null;
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('mouseup', stopDrag);
+    }
+
+    function updateTaskbar() {
+      const taskbarItems = document.getElementById('taskbarItems');
+      if (!taskbarItems) return;
+      
+      taskbarItems.innerHTML = '';
+      const windows = document.querySelectorAll('.window.active');
+      windows.forEach(win => {
+        const item = document.createElement('div');
+        item.className = 'taskbar-item';
+        const titleEl = win.querySelector('.title-text span:last-child');
+        const title = titleEl ? titleEl.textContent : 'Window';
+        item.textContent = title;
+        item.onclick = () => {
+          win.style.zIndex = ++zIndex;
+        };
+        taskbarItems.appendChild(item);
+      });
+    }
+
+    function toggleStartMenu() {
+      const menu = document.getElementById('startMenu');
+      if (!menu) return;
+      menu.classList.toggle('active');
+    }
+
+    function updateClock() {
+      const clockEl = document.getElementById('clock');
+      if (!clockEl) return;
+      
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      clockEl.textContent = `🕐 ${hours}:${minutes}`;
+    }
+
+    document.addEventListener('click', (e) => {
+      const startMenu = document.getElementById('startMenu');
+      const startBtn = document.querySelector('.start-btn');
+      if (startMenu && startBtn && !startMenu.contains(e.target) && !startBtn.contains(e.target)) {
+        startMenu.classList.remove('active');
+      }
+    });
+  </script>ePath();
+        ctx.fill();
+        
+        ctx.fillStyle = '#8B4513';
+        ctx.fillRect(obs.x - 3, obs.y + 5, 6, 10);
+      } else {
+        ctx.fillStyle = '#696969';
+        ctx.beginPath();
+        ctx.arc(obs.x, obs.y, 10, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function checkCollision(obs) {
+      const dx = player.x - obs.x;
+      const dy = player.y - obs.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      return dist < 15;
+    }
+
+    function gameLoop() {
+      if (!gameRunning || !ctx) return;
+      
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      player.x += player.vx;
+      player.y = 50;
+      
+      if (player.x < 10) player.x = 10;
+      if (player.x > 390) player.x = 390;
+      
+      obstacles.forEach((obs, index) => {
+        obs.y -= gameSpeed;
+        
+        if (obs.y < -20) {
+          obstacles[index] = {
+            x: Math.random() * 350 + 25,
+            y: canvas.height + 20,
+            type: Math.random() > 0.5 ? 'tree' : 'rock'
+          };
+        }
+        
+        if (checkCollision(obs)) {
+          gameRunning = false;
+          document.getElementById('gameOver').classList.add('active');
+          document.getElementById('finalDistance').textContent = Math.floor(distance);
+        }
+        
+        drawObstacle(obs);
+      });
+      
+      drawPlayer();
+      
+      distance += gameSpeed * 0.1;
+      gameSpeed += 0.001;
+      
+      document.getElementById('distance').textContent = Math.floor(distance);
+      document.getElementById('speed').textContent = Math.floor(gameSpeed);
+      
+      requestAnimationFrame(gameLoop);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (!gameRunning) return;
+      
+      if (e.key === 'ArrowLeft') {
+        player.vx = -4;
+      } else if (e.key === 'ArrowRight') {
+        player.vx = 4;
+      }
+    });
+
+    document.addEventListener('keyup', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        player.vx = 0;
+      }
+    });
+
+    function restartGame() {
+      initGame();
+      gameLoop();
+    }
+
+    // Window Management
+    function openWindow(windowId) {
+      const win = document.getElementById(windowId);
+      win.classList.add('active');
+      win.style.zIndex = ++zIndex;
+      updateTaskbar();
+      
+      if (windowId === 'skifree' && !gameRunning) {
+        setTimeout(() => {
+          initGame();
+          gameLoop();
+        }, 100);
+      }
+      
+      if (windowId === 'doom' && !doomActive) {
+        setTimeout(() => initDoom(), 100);
+      }
+      
+      if (windowId === 'minesweeper') {
+        setTimeout(() => initMinesweeper(), 100);
+      }
+    }
+
+    function closeWindow(windowId) {
+      const win = document.getElementById(windowId);
+      win.classList.remove('active');
+      updateTaskbar();
+      
+      if (windowId === 'skifree') {
+        gameRunning = false;
+      }
+      
+      if (windowId === 'doom') {
+        doomActive = false;
+      }
+    }
+
+    function startDrag(e, windowId) {
+      draggedWindow = document.getElementById(windowId);
+      draggedWindow.style.zIndex = ++zIndex;
+      const rect = draggedWindow.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('mouseup', stopDrag);
+    }
+
+    function drag(e) {
+      if (draggedWindow) {
+        draggedWindow.style.left = (e.clientX - offsetX) + 'px';
+        draggedWindow.style.top = (e.clientY - offsetY) + 'px';
+      }
+    }
+
+    function stopDrag() {
+      draggedWindow = null;
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('mouseup', stopDrag);
+    }
+
+    function updateTaskbar() {
+      const taskbarItems = document.getElementById('taskbarItems');
+      taskbarItems.innerHTML = '';
+      const windows = document.querySelectorAll('.window.active');
+      windows.forEach(win => {
+        const item = document.createElement('div');
+        item.className = 'taskbar-item';
+        const title = win.querySelector('.title-text span:last-child').textContent;
+        item.textContent = title;
+        item.onclick = () => {
+          win.style.zIndex = ++zIndex;
+        };
+        taskbarItems.appendChild(item);
+      });
+    }
+
+    function toggleStartMenu() {
+      const menu = document.getElementById('startMenu');
+      menu.classList.toggle('active');
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      document.getElementById('clock').textContent = `🕐 ${hours}:${minutes}`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    document.addEventListener('click', (e) => {
+      const startMenu = document.getElementById('startMenu');
+      const startBtn = document.querySelector('.start-btn');
+      if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
+        startMenu.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
