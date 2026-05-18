@@ -15,21 +15,7 @@
       font-family: 'Tahoma', sans-serif;
       overflow: hidden;
       height: 100vh;
-      background: 
-        radial-gradient(ellipse at 50% 80%, #7cbc3c 0%, #7cbc3c 30%, transparent 50%),
-        radial-gradient(ellipse at 30% 70%, #6bb02e 0%, transparent 40%),
-        radial-gradient(ellipse at 70% 75%, #8bc850 0%, transparent 35%),
-        linear-gradient(to bottom, 
-          #5da3db 0%, 
-          #6eb5e5 20%,
-          #7ec3ed 40%,
-          #a0d5f5 60%,
-          #9bd270 75%,
-          #8bc850 85%,
-          #7cbc3c 100%
-        );
-      background-size: cover;
-      background-position: center;
+      background: #5da3db url('assets/bliss.png') center/cover no-repeat;
       user-select: none;
     }
 
@@ -55,6 +41,7 @@
       width: 48px;
       height: 48px;
       margin-bottom: 4px;
+      image-rendering: pixelated;
     }
 
     .icon-label {
@@ -162,6 +149,7 @@
     .folder img {
       width: 48px;
       height: 48px;
+      image-rendering: pixelated;
     }
 
     .folder-label {
@@ -602,47 +590,47 @@
 <body>
   <div class="desktop" id="desktop">
     <div class="icon" style="left: 20px; top: 20px;" ondblclick="openWindow('myComputer')">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23757575' d='M38 8H10c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h28c2.2 0 4-1.8 4-4V12c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%239E9E9E' d='M38 6H10c-3.3 0-6 2.7-6 6v24c0 3.3 2.7 6 6 6h28c3.3 0 6-2.7 6-6V12c0-3.3-2.7-6-6-6zm0 30H10V12h28v24z'/%3E%3Cpath fill='%2300BCD4' d='M16 18h16v2H16zm0 4h16v2H16zm0 4h12v2H16z'/%3E%3C/svg%3E" alt="My Computer">
+      <img src="assets/icons/my_computer.png" alt="My Computer">
       <div class="icon-label">My Computer</div>
     </div>
 
     <div class="icon" style="left: 20px; top: 120px;" ondblclick="openWindow('aboutMeTxt')">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FFF' d='M10 4h22l6 6v32c0 1.1-.9 2-2 2H10c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpath fill='%23E0E0E0' d='M32 4v6h6z'/%3E%3Cpath fill='%23616161' d='M14 18h20v2H14zm0 4h20v2H14zm0 4h20v2H14zm0 4h14v2H14z'/%3E%3C/svg%3E" alt="about me.txt">
+      <img src="assets/icons/notepad_doc.png" alt="about me.txt">
       <div class="icon-label">about me.txt</div>
     </div>
 
     <div class="icon" style="left: 20px; top: 220px;" ondblclick="openWindow('chrome')">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='20' fill='%23FFC107'/%3E%3Ccircle cx='24' cy='24' r='16' fill='%23FF5722'/%3E%3Ccircle cx='24' cy='24' r='12' fill='%234CAF50'/%3E%3Ccircle cx='24' cy='24' r='8' fill='%232196F3'/%3E%3Ccircle cx='24' cy='24' r='5' fill='%23FFF'/%3E%3Cpath fill='%23F44336' d='M24 4c11 0 20 9 20 20h-20z'/%3E%3Cpath fill='%23FFEB3B' d='M7.3 35.3L24 24V4C13 4 4 13 4 24c0 4.2 1.3 8.1 3.3 11.3z'/%3E%3Cpath fill='%234CAF50' d='M40.7 35.3L24 24l16.7-11.3C42.7 15.9 44 19.8 44 24c0 4.2-1.3 8.1-3.3 11.3z'/%3E%3C/svg%3E" alt="Google Chrome">
-      <div class="icon-label">Google Chrome</div>
+      <img src="assets/icons/internet_explorer.png" alt="Internet Explorer">
+      <div class="icon-label">Internet Explorer</div>
     </div>
 
     <div class="icon" style="left: 20px; top: 320px;" ondblclick="openWindow('skifree')">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%2387CEEB' width='48' height='48'/%3E%3Cpath fill='%23FFF' d='M8 35l4-8 4 8zm12-5l3-6 3 6zm14-3l2-4 2 4z'/%3E%3Cpath fill='%23333' d='M24 18c-1 0-1.5.5-1.5 1.5v3c0 1 .5 1.5 1.5 1.5s1.5-.5 1.5-1.5v-3c0-1-.5-1.5-1.5-1.5z'/%3E%3Ccircle cx='24' cy='16' r='2' fill='%23FFD700'/%3E%3Cpath fill='%23FF0000' d='M22 24l-1 3h6l-1-3z'/%3E%3Cpath fill='%23333' d='M20 27l-2 8h12l-2-8z'/%3E%3C/svg%3E" alt="SkiFree">
+      <img src="assets/icons/joystick.png" alt="SkiFree">
       <div class="icon-label">SkiFree</div>
     </div>
 
     <div class="icon" style="left: 120px; top: 20px;" ondblclick="openWindow('recycle')">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%232196F3' d='M38 14h-8l-4-6H14l-4 6H2v4h36z'/%3E%3Cpath fill='%2364B5F6' d='M6 18v20c0 2.2 1.8 4 4 4h28c2.2 0 4-1.8 4-4V18z'/%3E%3Cpath fill='%23FFF' d='M18 24h4v12h-4zm8 0h4v12h-4z'/%3E%3C/svg%3E" alt="Recycle Bin">
+      <img src="assets/icons/recycle_bin.png" alt="Recycle Bin">
       <div class="icon-label">Recycle Bin</div>
     </div>
 
     <div class="icon" style="left: 120px; top: 120px;" ondblclick="openWindow('minesweeper')">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23C0C0C0' width='48' height='48'/%3E%3Cpath fill='%23808080' d='M4 4h40v40H4z'/%3E%3Cpath fill='%23FFF' d='M8 8h32v32H8z'/%3E%3Ctext x='24' y='30' text-anchor='middle' font-size='20' fill='%23FF0000' font-weight='bold'%3E💣%3C/text%3E%3C/svg%3E" alt="Minesweeper">
+      <img src="assets/icons/minesweeper.png" alt="Minesweeper">
       <div class="icon-label">Minesweeper</div>
     </div>
 
     <div class="icon" style="left: 120px; top: 220px;" ondblclick="openWindow('music')">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FFD54F' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%23FFEB3B' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Ctext x='24' y='30' text-anchor='middle' font-size='18' fill='%23F57C00'%3E🎵%3C/text%3E%3C/svg%3E" alt="Music">
+      <img src="assets/icons/music_file.png" alt="Music">
       <div class="icon-label">Music</div>
     </div>
 
     <div class="icon" style="left: 120px; top: 320px;" ondblclick="openTotse()">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23000' width='48' height='48'/%3E%3Cpath fill='%2300FF00' d='M8 8h32v4H8zm0 8h32v4H8zm0 8h24v4H8zm0 8h28v4H8z'/%3E%3Ccircle cx='38' cy='38' r='6' fill='%2300FF00'/%3E%3Cpath fill='%23000' d='M38 35v6M35 38h6'/%3E%3C/svg%3E" alt="Totse">
+      <img src="assets/icons/console.png" alt="Totse">
       <div class="icon-label">Totse.com</div>
     </div>
 
     <div class="icon" style="left: 20px; top: 420px;" ondblclick="openWindow('pics')">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%2366BB6A' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%234CAF50' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%23FFF' d='M18 24l-4 5h16l-5-6-3 4z'/%3E%3Ccircle cx='30' cy='20' r='2' fill='%23FFD54F'/%3E%3C/svg%3E" alt="Pics">
+      <img src="assets/icons/picture_file.png" alt="Pics">
       <div class="icon-label">Pics</div>
     </div>
   </div>
@@ -663,7 +651,7 @@
     <div class="window-content">
       <div class="folder-view">
         <div class="folder" ondblclick="openWindow('cDrive')">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FFA726' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%23FFB74D' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3C/svg%3E" alt="C:">
+          <img src="assets/icons/my_computer.png" alt="C:">
           <div class="folder-label">Local Disk (C:)</div>
         </div>
       </div>
@@ -684,15 +672,15 @@
     <div class="window-content">
       <div class="folder-view">
         <div class="folder" ondblclick="openWindow('aboutMe')">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FFD54F' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%23FFEB3B' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3C/svg%3E" alt="About Me">
+          <img src="assets/icons/folder.png" alt="About Me">
           <div class="folder-label">About Me</div>
         </div>
         <div class="folder" ondblclick="openWindow('projects')">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%234FC3F7' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%2329B6F6' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3C/svg%3E" alt="Projects">
+          <img src="assets/icons/folder.png" alt="Projects">
           <div class="folder-label">Projects</div>
         </div>
         <div class="folder" ondblclick="openWindow('contact')">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%2366BB6A' d='M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3Cpath fill='%234CAF50' d='M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z'/%3E%3C/svg%3E" alt="Contact">
+          <img src="assets/icons/folder.png" alt="Contact">
           <div class="folder-label">Contact Me</div>
         </div>
       </div>
@@ -783,7 +771,7 @@
     <div class="window-content">
       <div class="folder-view">
         <div class="folder" ondblclick="openYouTubeVideo()">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23E91E63' width='48' height='48' rx='4'/%3E%3Cpath fill='%23FFF' d='M24 10c-7.7 0-14 6.3-14 14s6.3 14 14 14 14-6.3 14-14-6.3-14-14-14zm-2 21v-14l11 7-11 7z'/%3E%3C/svg%3E" alt="White Iverson">
+          <img src="assets/icons/music_file.png" alt="White Iverson">
           <div class="folder-label">White Iverson</div>
         </div>
       </div>
@@ -845,7 +833,7 @@ Last Updated: January 2026</div>
     <div class="title-bar" onmousedown="startDrag(event, 'chrome')">
       <div class="title-text">
         <span>🌐</span>
-        <span>Michael Swayney - Resume - Google Chrome</span>
+        <span>Michael Swayney - Resume - Microsoft Internet Explorer</span>
       </div>
       <div class="title-buttons">
         <div class="title-btn" onclick="closeWindow('chrome')">×</div>
