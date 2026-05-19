@@ -13,6 +13,18 @@ function initializePage() {
   setupTouchHandlers();
 }
 
+function dismissLogin() {
+  const overlay = document.getElementById('xpLogin');
+  const audio = document.getElementById('xpStartupSound');
+  if (audio) {
+    audio.play().catch(() => {});
+  }
+  if (overlay) {
+    overlay.classList.add('dismissed');
+    setTimeout(() => overlay.remove(), 700);
+  }
+}
+
 function setupTouchHandlers() {
   const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   if (!isTouch) return;
@@ -23,8 +35,91 @@ function setupTouchHandlers() {
   });
 }
 
-function openYouTubeVideo() {
-  window.open('https://www.youtube.com/watch?v=SLsTskih7_I&list=RDSLsTskih7_I&start_radio=1', '_blank');
+function openMediaPlayer() {
+  openWindow('mediaPlayer');
+  const audio = document.getElementById('wmpAudio');
+  if (!audio) return;
+  setupMediaPlayer();
+  audio.currentTime = 0;
+  audio.play().catch(() => {});
+  updatePlayButton();
+}
+
+function closeMediaPlayer() {
+  const audio = document.getElementById('wmpAudio');
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+  updatePlayButton();
+  closeWindow('mediaPlayer');
+}
+
+function toggleMediaPlayback() {
+  const audio = document.getElementById('wmpAudio');
+  if (!audio) return;
+  if (audio.paused) {
+    audio.play().catch(() => {});
+  } else {
+    audio.pause();
+  }
+  updatePlayButton();
+}
+
+function updatePlayButton() {
+  const audio = document.getElementById('wmpAudio');
+  const btn = document.getElementById('wmpPlayBtn');
+  const viz = document.getElementById('wmpVisualizer');
+  if (!audio || !btn) return;
+  if (audio.paused) {
+    btn.innerHTML = '&#9654;';
+    if (viz) viz.classList.add('paused');
+  } else {
+    btn.innerHTML = '&#10073;&#10073;';
+    if (viz) viz.classList.remove('paused');
+  }
+}
+
+function seekMedia(e) {
+  const audio = document.getElementById('wmpAudio');
+  const bar = document.getElementById('wmpProgress');
+  if (!audio || !bar || !audio.duration) return;
+  const rect = bar.getBoundingClientRect();
+  const ratio = (e.clientX - rect.left) / rect.width;
+  audio.currentTime = Math.max(0, Math.min(1, ratio)) * audio.duration;
+}
+
+function formatTime(sec) {
+  if (!isFinite(sec)) return '0:00';
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60).toString().padStart(2, '0');
+  return `${m}:${s}`;
+}
+
+let wmpInitialized = false;
+function setupMediaPlayer() {
+  if (wmpInitialized) return;
+  const audio = document.getElementById('wmpAudio');
+  if (!audio) return;
+  audio.addEventListener('timeupdate', () => {
+    const fill = document.getElementById('wmpProgressFill');
+    const cur = document.getElementById('wmpTimeCurrent');
+    if (fill && audio.duration) {
+      fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+    }
+    if (cur) cur.textContent = formatTime(audio.currentTime);
+  });
+  audio.addEventListener('loadedmetadata', () => {
+    const total = document.getElementById('wmpTimeTotal');
+    if (total) total.textContent = formatTime(audio.duration);
+  });
+  audio.addEventListener('ended', () => {
+    audio.currentTime = 0;
+    updatePlayButton();
+  });
+  audio.addEventListener('play', updatePlayButton);
+  audio.addEventListener('pause', updatePlayButton);
+  wmpInitialized = true;
 }
 
 function openTotse() {

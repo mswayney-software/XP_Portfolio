@@ -7,6 +7,33 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="xp-login" id="xpLogin">
+    <div class="xp-login-top">
+      <span class="xp-logo-text">Windows<sup>xp</sup></span>
+      <span class="xp-logo-tag">Professional</span>
+    </div>
+    <div class="xp-login-body">
+      <div class="xp-login-left">
+        <p class="xp-login-welcome">To begin, click your user name</p>
+      </div>
+      <div class="xp-login-divider"></div>
+      <div class="xp-login-right">
+        <div class="xp-user-tile" onclick="dismissLogin()">
+          <div class="xp-avatar">
+            <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23A0BCE0%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2222%22%20r%3D%2210%22%20fill%3D%22%23fff%22%2F%3E%3Cellipse%20cx%3D%2232%22%20cy%3D%2256%22%20rx%3D%2218%22%20ry%3D%2214%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E" alt="">
+          </div>
+          <div class="xp-user-info">
+            <div class="xp-user-name">Michael Troy Swayney</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="xp-login-bottom">
+      <p class="xp-login-hint">After you log on, you can add or change accounts.<br>Just go to Control Panel and click User Accounts.</p>
+    </div>
+  </div>
+  <audio id="xpStartupSound" src="assets/xp_startup.mp3" preload="auto"></audio>
+
   <div class="desktop" id="desktop">
     <div class="icon" style="left: 20px; top: 20px;" ondblclick="openWindow('myComputer')">
       <img src="assets/icons/my_computer.png" alt="My Computer">
@@ -48,9 +75,9 @@
       <div class="icon-label">Totse.com</div>
     </div>
 
-    <div class="icon" style="left: 20px; top: 420px;" ondblclick="openWindow('pics')">
-      <img src="assets/icons/picture_file.png" alt="Pics">
-      <div class="icon-label">Pics</div>
+    <div class="icon" style="left: 20px; top: 420px;" ondblclick="openWindow('myPictures')">
+      <img src="assets/icons/folder.png" alt="My Pictures">
+      <div class="icon-label">My Pictures</div>
     </div>
   </div>
 
@@ -189,7 +216,7 @@
     </div>
     <div class="window-content">
       <div class="folder-view">
-        <div class="folder" ondblclick="openYouTubeVideo()">
+        <div class="folder" ondblclick="openMediaPlayer()">
           <img src="assets/icons/music_file.png" alt="White Iverson">
           <div class="folder-label">White Iverson</div>
         </div>
@@ -197,7 +224,57 @@
     </div>
   </div>
 
-  <!-- White Iverson Video Window - REMOVED (opens in new tab instead) -->
+  <!-- Windows Media Player Window -->
+  <div class="window wmp-window" id="mediaPlayer" style="left: 240px; top: 90px; width: 720px; height: 540px;">
+    <div class="title-bar wmp-title-bar" onmousedown="startDrag(event, 'mediaPlayer')">
+      <div class="title-text">
+        <span>🎵</span>
+        <span>White Iverson - Windows Media Player</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeMediaPlayer()">×</div>
+      </div>
+    </div>
+    <div class="wmp-body">
+      <div class="wmp-now-playing">
+        <span class="wmp-np-label">Now Playing</span>
+        <span class="wmp-np-track">Post Malone &mdash; White Iverson</span>
+      </div>
+      <div class="wmp-video-area">
+        <div class="wmp-visualizer" id="wmpVisualizer">
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+          <span class="wmp-bar"></span>
+        </div>
+        <div class="wmp-track-info">
+          <div class="wmp-track-title">White Iverson</div>
+          <div class="wmp-track-artist">Post Malone</div>
+        </div>
+      </div>
+      <div class="wmp-controls">
+        <button class="wmp-play-btn" id="wmpPlayBtn" onclick="toggleMediaPlayback()" aria-label="Play/Pause">&#9654;</button>
+        <span class="wmp-time" id="wmpTimeCurrent">0:00</span>
+        <div class="wmp-progress" id="wmpProgress" onclick="seekMedia(event)">
+          <div class="wmp-progress-fill" id="wmpProgressFill"></div>
+        </div>
+        <span class="wmp-time" id="wmpTimeTotal">0:00</span>
+      </div>
+      <audio id="wmpAudio" preload="metadata" src="assets/Post%20Malone%20-%20White%20Iverson.mp3"></audio>
+    </div>
+  </div>
 
   <!-- About Me TXT Window -->
   <div class="window" id="aboutMeTxt" style="left: 180px; top: 100px; width: 550px; height: 400px;">
@@ -211,39 +288,13 @@
       </div>
     </div>
     <div class="window-content" style="padding: 0;">
-      <div class="notepad-content">ABOUT ME
-========================================
+      <div class="notepad-content">Hi, I'm Michael Troy Swayney
 
-Name: Michael Troy Swayney
-Title: Engineering Professional
-Location: Charleston, South Carolina
+I'm an Army vet making the jump into AI use case development with a focus on real world problems. I've been working with multiple LLMs for about three years now, and for the last six months I've been focused on designing an AI powered, all in one restaurant app that handles everything from scheduling and payroll to FOH -&gt; BOH continuity, seating, and HR.
 
-========================================
+I first got interested in tech back in the early 2000s editing the PC game Driver and my MySpace profile while learning HTML and CSS from my uncle. After the Army in 2007, I spent years in food and beverage, moved into the car wash industry in 2015, went back to restaurants in 2023, and most recently worked in data center construction from 2024 to 2026. Working in restaurants for so long taught me where products like Toast fall short, and gaps like that is what I want to fix with AI.
 
-Hi there! Thanks for checking out my portfolio.
-
-I'm a passionate engineer who loves building 
-things and solving complex problems. This 
-Windows XP-themed portfolio is just one example 
-of how I combine creativity with technical skills.
-
-WHAT I DO:
-- Software Development
-- Web Technologies
-- System Design
-- Creative Problem Solving
-
-INTERESTS:
-- Retro computing and UI design
-- Open source contributions
-- Continuous learning
-- Building cool projects
-
-Feel free to explore the rest of my portfolio
-to see my projects and get in touch!
-
-========================================
-Last Updated: January 2026</div>
+I keep a growing portfolio of projects. I enjoy rapid prototyping, iterating, and turning messy operational problems into practical AI solutions. I bring hands-on experience, a product mindset, and discipline from my military service. If you want to talk product pain points, AI prototypes, or just trade tech throwback stories, let's chat!</div>
     </div>
   </div>
 
@@ -336,12 +387,33 @@ Last Updated: January 2026</div>
     </div>
   </div>
 
-  <!-- Pics Folder Window -->
+  <!-- My Pictures Folder Window -->
+  <div class="window" id="myPictures" style="left: 200px; top: 130px; width: 500px; height: 360px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'myPictures')">
+      <div class="title-text">
+        <span>🖼️</span>
+        <span>My Pictures</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('myPictures')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="folder-view">
+        <div class="folder" ondblclick="openWindow('pics')">
+          <img src="assets/icons/picture_file.png" alt="Rhiannon's house 2004">
+          <div class="folder-label">Rhiannon's house 2004</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rhiannon's house 2004 Window -->
   <div class="window" id="pics" style="left: 180px; top: 120px; width: 800px; height: 600px;">
     <div class="title-bar" onmousedown="startDrag(event, 'pics')">
       <div class="title-text">
         <span>📷</span>
-        <span>Pics</span>
+        <span>Rhiannon's house 2004</span>
       </div>
       <div class="title-buttons">
         <div class="title-btn" onclick="closeWindow('pics')">×</div>
@@ -349,9 +421,9 @@ Last Updated: January 2026</div>
     </div>
     <div class="window-content" style="padding: 16px; background: white;">
       <div style="text-align: center;">
-        <h3 style="color: #0054E3; margin-bottom: 16px;">Good Times - Circa 2009</h3>
-        <img src="data:image/jpeg;base64,{{PHOTO_BASE64}}" 
-             alt="Nostalgic photo from 2009" 
+        <h3 style="color: #0054E3; margin-bottom: 16px;">Rhiannon's house 2004</h3>
+        <img src="assets/image000001.JPG"
+             alt="Rhiannon's house 2004"
              style="max-width: 100%; height: auto; border: 3px solid #999; box-shadow: 2px 2px 8px rgba(0,0,0,0.3);"
              onclick="openWindow('photoViewer')">
         <p style="margin-top: 12px; color: #666; font-size: 12px;">Click photo to view full size</p>
@@ -371,7 +443,7 @@ Last Updated: January 2026</div>
       </div>
     </div>
     <div class="window-content" style="padding: 0; background: #000; display: flex; align-items: center; justify-content: center;">
-      <img src="data:image/jpeg;base64,{{PHOTO_BASE64}}" 
+      <img src="assets/image000001.JPG" 
            alt="Full size photo" 
            style="max-width: 100%; max-height: 100%; object-fit: contain;">
     </div>
