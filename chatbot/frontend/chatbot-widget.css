@@ -1,0 +1,149 @@
+/* Windows XP-styled portfolio chatbot widget.
+   Self-contained: all classes are namespaced under .xpc- to avoid clashing
+   with the host site's styles. */
+
+.xpc-launcher {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  font-family: Tahoma, "Segoe UI", sans-serif;
+  font-size: 12px;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid #0a3d91;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #3b87f0 0%, #2b6fd6 45%, #1f5dc0 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  user-select: none;
+}
+.xpc-launcher:hover { filter: brightness(1.07); }
+.xpc-launcher-icon { font-size: 15px; }
+
+.xpc-window {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 100000;
+  display: none;
+  flex-direction: column;
+  width: 340px;
+  height: 460px;
+  max-height: calc(100vh - 40px);
+  font-family: Tahoma, "Segoe UI", sans-serif;
+  background: #ece9d8;
+  border: 1px solid #0831d9;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+.xpc-window.xpc-open { display: flex; }
+
+.xpc-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 28px;
+  padding: 0 6px 0 8px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(180deg, #2f7bf0 0%, #1c5fd6 50%, #1850c4 100%);
+  border-bottom: 1px solid #0831d9;
+}
+.xpc-title { display: flex; align-items: center; gap: 6px; }
+.xpc-close {
+  width: 20px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  line-height: 1;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #e9685f, #c5392f);
+}
+.xpc-close:hover { filter: brightness(1.1); }
+
+.xpc-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background: #fff;
+  border: 2px inset #d6d3c4;
+  margin: 6px;
+}
+
+.xpc-msg {
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.xpc-msg-bubble {
+  max-width: 85%;
+  padding: 7px 10px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.xpc-msg.xpc-user { justify-content: flex-end; }
+.xpc-msg.xpc-user .xpc-msg-bubble {
+  background: #d6e8ff;
+  border: 1px solid #9cc4f0;
+}
+.xpc-msg.xpc-bot .xpc-msg-bubble {
+  background: #f1f0e7;
+  border: 1px solid #cfccbd;
+}
+
+.xpc-sources {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.xpc-source-chip {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: #ece9d8;
+  border: 1px solid #b7b49f;
+  color: #333;
+}
+
+.xpc-typing { font-style: italic; color: #666; }
+
+.xpc-inputbar {
+  display: flex;
+  gap: 6px;
+  padding: 6px 8px 10px;
+  background: #ece9d8;
+}
+.xpc-input {
+  flex: 1;
+  padding: 6px 8px;
+  font-family: inherit;
+  font-size: 12px;
+  border: 2px inset #d6d3c4;
+  border-radius: 2px;
+}
+.xpc-send {
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #fdfdfd, #dedacb);
+  border: 1px solid #8a8674;
+  border-radius: 3px;
+}
+.xpc-send:hover { filter: brightness(0.98); }
+.xpc-send:disabled { opacity: 0.5; cursor: default; }

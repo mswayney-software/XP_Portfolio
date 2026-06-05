@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatbot Widget Demo</title>
+    <link rel="stylesheet" href="chatbot-widget.css" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Tahoma, "Segoe UI", sans-serif;
+        background: #5a7edc; /* XP Bliss-ish blue */
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .panel {
+        background: rgba(0, 0, 0, 0.25);
+        padding: 28px 36px;
+        border-radius: 10px;
+        max-width: 520px;
+      }
+      code {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 1px 5px;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="panel">
+      <h1>Portfolio Chatbot — Demo</h1>
+      <p>
+        Click the <strong>"Ask about this site"</strong> button in the bottom-right
+        corner to chat. Make sure the backend is running at
+        <code>http://localhost:8000</code>.
+      </p>
+    </div>
+
+    <!-- Point the widget at your backend -->
+    <script>
+      window.PORTFOLIO_CHATBOT = { apiUrl: "http://localhost:8000" };
+    </script>
+    <script src="chatbot-widget.js" defer></script>
+  </body>
+</html>
