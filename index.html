@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Windows XP Portfolio</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="chatbot/frontend/chatbot-widget.css">
 </head>
 <body>
   <div class="xp-login" id="xpLogin">
@@ -486,5 +487,11 @@ I keep a growing portfolio of projects. I enjoy rapid prototyping, iterating, an
   </div>
 
   <script src="script.js"></script>
+
+  <!-- Portfolio RAG chatbot widget. apiUrl points at the deployed Railway backend. -->
+  <script>
+    window.PORTFOLIO_CHATBOT = { apiUrl: "https://xpportfolio-production.up.railway.app" };
+  </script>
+  <script src="chatbot/frontend/chatbot-widget.js" defer></script>
 </body>
 </html>
