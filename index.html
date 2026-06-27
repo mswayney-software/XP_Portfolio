@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Windows XP Portfolio</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="email-triage/email-triage.css">
   <link rel="stylesheet" href="chatbot/frontend/chatbot-widget.css">
 </head>
 <body>
@@ -79,6 +80,11 @@
     <div class="icon" style="left: 20px; top: 420px;" ondblclick="openWindow('myPictures')">
       <img src="assets/icons/folder.png" alt="My Pictures">
       <div class="icon-label">My Pictures</div>
+    </div>
+
+    <div class="icon" style="left: 120px; top: 420px;" ondblclick="openWindow('emailTriage')">
+      <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20x%3D%224%22%20y%3D%2214%22%20width%3D%2256%22%20height%3D%2236%22%20rx%3D%224%22%20fill%3D%22%23fdfdfd%22%20stroke%3D%22%232b6cb0%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M6%2017%2032%2036%2058%2017%22%20fill%3D%22none%22%20stroke%3D%22%232b6cb0%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2244%22%20r%3D%2212%22%20fill%3D%22%232e7d32%22%2F%3E%3Cpath%20d%3D%22M45%2044l3.5%203.5L56%2040%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E" alt="Email Triage">
+      <div class="icon-label">Email Triage</div>
     </div>
   </div>
 
@@ -169,6 +175,13 @@
     <div class="window-content">
       <div class="content-section">
         <h2>My Engineering Projects</h2>
+        <div class="project-item">
+          <h3>AI Email Triage Pipeline</h3>
+          <p>An n8n + Claude system that reads incoming customer email, decides what each message needs, and drafts a reply only for the ones safe to answer automatically — pushing anything sensitive or uncertain to a human. Tuned from 78% to 93% routing accuracy on a 40-email test set, for 44¢ in total API spend.</p>
+          <p><strong>Technologies:</strong> n8n, Claude API (Haiku 4.5 + Sonnet 4.6), JavaScript</p>
+          <p><button onclick="openWindow('emailTriage')" style="padding: 5px 14px; cursor: pointer; font-weight: bold;">▸ Try the live demo</button>
+             &nbsp;<a href="https://github.com/mswayney-software/ai_email_triager" target="_blank">View on GitHub</a></p>
+        </div>
         <div class="project-item">
           <h3>Windows XP Portfolio Website</h3>
           <p>A fully interactive portfolio website that recreates the classic Windows XP experience. Features draggable windows, working file system navigation, and authentic XP styling.</p>
@@ -449,6 +462,22 @@ I keep a growing portfolio of projects. I enjoy rapid prototyping, iterating, an
     </div>
   </div>
 
+  <!-- Email Triage App Window -->
+  <div class="window" id="emailTriage" style="left: 120px; top: 60px; width: 860px; height: 600px;">
+    <div class="title-bar" onmousedown="startDrag(event, 'emailTriage')">
+      <div class="title-text">
+        <span>✉️</span>
+        <span>Email Triage - AI Inbox Assistant</span>
+      </div>
+      <div class="title-buttons">
+        <div class="title-btn" onclick="closeWindow('emailTriage')">×</div>
+      </div>
+    </div>
+    <div class="window-content" style="padding: 0;">
+      <div id="etRoot"></div>
+    </div>
+  </div>
+
   <!-- Taskbar -->
   <div class="taskbar">
     <div class="start-btn" onclick="toggleStartMenu()">
@@ -473,6 +502,9 @@ I keep a growing portfolio of projects. I enjoy rapid prototyping, iterating, an
           <div class="start-menu-item" onclick="openWindow('music'); toggleStartMenu();">
             <span>🎵</span> Music
           </div>
+          <div class="start-menu-item" onclick="openWindow('emailTriage'); toggleStartMenu();">
+            <span>✉️</span> Email Triage
+          </div>
         </div>
         <div>
           <div class="start-menu-item" onclick="openWindow('chrome'); toggleStartMenu();">
@@ -487,6 +519,9 @@ I keep a growing portfolio of projects. I enjoy rapid prototyping, iterating, an
   </div>
 
   <script src="script.js"></script>
+
+  <!-- Email Triage demo app (self-contained, no backend). -->
+  <script src="email-triage/email-triage.js" defer></script>
 
   <!-- Portfolio RAG chatbot widget. apiUrl points at the deployed Railway backend. -->
   <script>
